@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "82496229224",
+    "project_id": "yoadproject2027",
+    "storage_bucket": "yoadproject2027.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:82496229224:android:c139d96704f9f9e6d750dd",
+        "android_client_info": {
+          "package_name": "com.katza.yoadfirebase1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYvoD5B53ZlMVbfuMaXCw0V1Cw2PC_Ox8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:82496229224:android:3af2799e071a4125d750dd",
+        "android_client_info": {
+          "package_name": "com.katza.yoadfirebaseapp1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYvoD5B53ZlMVbfuMaXCw0V1Cw2PC_Ox8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

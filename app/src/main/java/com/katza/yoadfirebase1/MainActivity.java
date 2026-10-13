@@ -1,0 +1,76 @@
+package com.katza.yoadfirebase1;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+
+import java.util.ArrayList;
+
+public class MainActivity extends AppCompatActivity {
+
+    EditText etTz, etFullname, etGrade;
+    Button btnInsert, btnSelect;
+
+    TextView tvContent;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+
+
+        etTz = findViewById(R.id.tz);
+        etFullname = findViewById(R.id.fullname);
+        etGrade = findViewById(R.id.grade);
+        btnInsert = findViewById(R.id.btnInsert);
+        btnSelect = findViewById(R.id.btnSelect);
+        tvContent = findViewById(R.id.tvcontent);
+
+        FireStoreDAO fsDAO = new FireStoreDAO();
+
+
+        btnInsert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fsDAO.createDocument(etFullname.getText().toString(),
+                        etTz.getText().toString(),
+                        Integer.parseInt(etGrade.getText().toString()));
+            }
+        });
+
+// בתוך onCreate ב-MainActivity.java
+        btnSelect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String docId = etTz.getText().toString();
+
+                fsDAO.readDocumentById(docId, new IFirestoreCallback() {
+                    @Override
+                    public void onDataReceived(ArrayList<Student> students) {
+                        if (students != null && !students.isEmpty()) {
+                            tvContent.setText(students.get(0).toString());
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+}
