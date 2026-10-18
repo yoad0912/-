@@ -6,11 +6,14 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -68,6 +71,22 @@ public class FireStoreDAO {
             }
         });
 
+        }
+        public void readAllDocuments(){
+            CollectionReference colRef = FirebaseFirestore.getInstance();
+            .collection(COLLECTION_NAME);
+            colRef.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                ArrayList<Student> students = new ArrayList<>();
+                for(DocumentSnapshot docSS : queryDocumentSnapshots) {
+                 Student student = docSS.toObject(Student.class);
+                 //Log.d("DAO_FIREBASE", "SUCCESFUL READ!" + student);
+                 students.add(student);
+                }
+                iFireStoreCallBack
+                }
+            });
         }
     }
 
