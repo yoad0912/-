@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     EditText etTz, etFullname, etGrade;
-    Button btnInsert, btnSelect;
+    Button btnInsert, btnSelect, btnSelectAll;
 
     TextView tvContent;
 
@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         etGrade = findViewById(R.id.grade);
         btnInsert = findViewById(R.id.btnInsert);
         btnSelect = findViewById(R.id.btnSelect);
+        btnSelectAll = findViewById(R.id.btnSelectAll);
         tvContent = findViewById(R.id.tvcontent);
 
         FireStoreDAO fsDAO = new FireStoreDAO();
@@ -59,6 +60,18 @@ public class MainActivity extends AppCompatActivity {
         btnSelect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int grade = Integer.parseInt(etGrade.getText().toString());
+                fsDAO.readQueryDocuments(grade, new IFirestoreCallback() {
+                    @Override
+                    public void onDataReceived(ArrayList<Student> students) {
+                        tvContent.setText("");
+                        for(int i=0; i< students.size();i++)
+                            tvContent.setText(tvContent.getText().toString() + students.get(i).toString());
+                    }
+
+                });
+
+                /*
                 String docId = etTz.getText().toString();
 
                 fsDAO.readDocumentById(docId, new IFirestoreCallback() {
@@ -67,6 +80,22 @@ public class MainActivity extends AppCompatActivity {
                         if (students != null && !students.isEmpty()) {
                             tvContent.setText(students.get(0).toString());
                         }
+                    }
+                });
+
+                 */
+            }
+        });
+
+        btnSelectAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tvContent.setText("");
+                fsDAO.readAllDocuments(new IFirestoreCallback() {
+                    @Override
+                    public void onDataReceived(ArrayList<Student> students) {
+                        for(int i=0; i< students.size();i++)
+                            tvContent.setText(tvContent.getText().toString() + students.get(i).toString());
                     }
                 });
             }

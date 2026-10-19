@@ -86,6 +86,12 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="מחק תלמיד" />
+            <Button
+                android:id="@+id/btnSelectAll"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="בחר כל התלמידים" />
         </LinearLayout>
     </LinearLayout>
 

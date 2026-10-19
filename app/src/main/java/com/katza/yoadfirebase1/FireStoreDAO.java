@@ -9,6 +9,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.Filter;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -72,8 +73,8 @@ public class FireStoreDAO {
         });
 
         }
-        public void readAllDocuments(){
-            CollectionReference colRef = FirebaseFirestore.getInstance();
+        public void readAllDocuments(IFirestoreCallback iFirestoreCallback){
+            CollectionReference colRef = FirebaseFirestore.getInstance()
             .collection(COLLECTION_NAME);
             colRef.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                 @Override
@@ -84,9 +85,28 @@ public class FireStoreDAO {
                  //Log.d("DAO_FIREBASE", "SUCCESFUL READ!" + student);
                  students.add(student);
                 }
-                iFireStoreCallBack
+                iFirestoreCallback.onDataReceived(students);
                 }
             });
         }
-    }
+        public void readQueryDocuments(int grade, IFirestoreCallback iFirestoreCallback){
+        CollectionReference colRef = FirebaseFirestore.getInstance()
+                .collection(COLLECTION_NAME);
+            //colRef.where(Filter.or(Filter.lessThan("grade",80),Filter.equalTo("id","0390"))).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        colRef.whereGreaterThan("grade",grade).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                ArrayList<Student> students = new ArrayList<>();
+                for(DocumentSnapshot docSS : queryDocumentSnapshots) {
+                    Student student = docSS.toObject(Student.class);
+                    //Log.d("DAO_FIREBASE", "SUCCESFUL READ!" + student);
+                    students.add(student);
+                }
+                iFirestoreCallback.onDataReceived(students);
+            }
+        });
+        }
+}
+
 
