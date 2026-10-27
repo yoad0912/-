@@ -1,10 +1,11 @@
 package com.katza.yoadfirebase1;
 
 public class Student {
-    private String fullName, id;
+    private String fullName, id, imageBase64;
     private int grade;
 
-    public Student(){}
+    public Student() {
+    }
 
     public String getFullName() {
         return fullName;
@@ -30,8 +31,20 @@ public class Student {
         this.grade = grade;
     }
 
+    public String getImageBase64() {
+        return imageBase64;
+    }
+
+    public void setImageBase64(String imageBase64) {
+        this.imageBase64 = imageBase64;
+    }
+
     @Override
-    public String toString(){
-        return "\n\n************פרטי תלמיד****************\nשם מלא: "+this.getFullName()+"\nמספר ת.ז.: "+this.getId()+"\nציון סופי: "+this.getGrade()+"\n**************************************\n\n";
+    public String toString() {
+        return "------------------------------------\n" +
+                "שם מלא: " + this.getFullName() + "\n" +
+                "מספר ת.ז.: " + this.getId() + "\n" +
+                "ציון סופי: " + this.getGrade() + "\n" +
+                "------------------------------------\n\n";
     }
 }

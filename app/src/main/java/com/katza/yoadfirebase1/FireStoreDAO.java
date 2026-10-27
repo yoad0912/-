@@ -28,12 +28,12 @@ public class FireStoreDAO {
     private static final String COLLECTION_NAME = "students";  //Data Access Object
 
 
-    public void createDocument(String name, String id, int grade) {
+    public void createDocument(String name, String id, int grade, String imageBase64 ) {
         Map<String, Object> studentRecord = new HashMap<>();
         studentRecord.put("fullName",name);
         studentRecord.put("id",id);
         studentRecord.put("grade",grade);
-
+        studentRecord.put("imageBase64", imageBase64); // שמירת התמונה בפורמט טקסט
 
         //FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference docRef = FirebaseFirestore.getInstance().
@@ -152,20 +152,18 @@ public class FireStoreDAO {
     private ListenerRegistration listenerRegistration;
 
     // ב. הפעלת ההאזנה בזמן אמת
-    public void listenToAllDocumentsChange() {
-        CollectionReference colRef = FirebaseFirestore.getInstance()
-                .collection(COLLECTION_NAME);
+    public void listenToAllDocumentsChange(IFirestoreCallback callback) {
+        CollectionReference colRef = FirebaseFirestore.getInstance().collection(COLLECTION_NAME);
 
-        listenerRegistration = colRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                if (error != null || value == null) return;
+        listenerRegistration = colRef.addSnapshotListener((value, error) -> {
+            if (error != null || value == null) return;
 
-                for (DocumentChange docC : value.getDocumentChanges()) {
-                    Student student = docC.getDocument().toObject(Student.class);
-                    Log.d("DAO_MULTIPLE_CHANGES", docC.getType() + ": " + student.toString());
-                }
+            ArrayList<Student> students = new ArrayList<>();
+            for (DocumentSnapshot doc : value.getDocuments()) {
+                Student student = doc.toObject(Student.class);
+                if (student != null) students.add(student);
             }
+            callback.onDataReceived(students);
         });
     }
 

@@ -6,94 +6,124 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/bottomlayout"
         app:layout_constraintTop_toTopOf="parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40sp"
-            android:gravity="center">
-            <TextView
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/ivStudent"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginBottom="10dp"
+                android:scaleType="centerCrop"
+                android:src="@android:drawable/ic_menu_camera" />
+
+            <Button
+                android:id="@+id/btnSelectImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
+                android:layout_marginBottom="15dp"
+                android:text="בחר תמונה" />
+
+            <TextView
+                android:id="@+id/tvcontent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:textDirection="rtl"
-                android:id="@+id/tvcontent"/>
+                android:textSize="18sp" />
         </LinearLayout>
     </ScrollView>
+
     <LinearLayout
+        android:id="@+id/bottomlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/bottomlayout"
-        android:orientation="vertical"
         android:gravity="center"
+        android:orientation="vertical"
+        android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="parent">
+
         <EditText
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
             android:id="@+id/tz"
-            android:gravity="center"
-            android:hint="תעודת זהות"/>
-        <EditText
-            android:layout_width="300dp"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="תעודת זהות"
+            android:inputType="number" />
+
+        <EditText
             android:id="@+id/fullname"
-            android:gravity="center"
-            android:hint="שם מלא"/>
-        <EditText
-            android:layout_width="300dp"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
-            android:id="@+id/grade"
             android:gravity="center"
-            android:hint="ציון סופי"/>
+            android:hint="שם מלא" />
 
+        <EditText
+            android:id="@+id/grade"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="ציון סופי"
+            android:inputType="number" />
 
+        <!-- שורת כפתורים ראשונה -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            >
+            android:orientation="horizontal">
+
             <Button
                 android:id="@+id/btnInsert"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="הוסף תלמיד" />
-
-
-            <Button
-                android:id="@+id/btnSelect"
-                android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="הצג תלמידים" />
-
+                android:text="הוסף" />
 
             <Button
                 android:id="@+id/btnUpdate"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="עדכן תלמיד" />
-
+                android:layout_weight="1"
+                android:text="עדכן" />
 
             <Button
                 android:id="@+id/btnDelete"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="מחק תלמיד" />
+                android:layout_weight="1"
+                android:text="מחק" />
+        </LinearLayout>
+
+        <!-- שורת כפתורים שנייה -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnSelect"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="חפש לפי ציון" />
+
             <Button
                 android:id="@+id/btnSelectAll"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="בחר כל התלמידים" />
+                android:layout_weight="1"
+                android:text="הצג הכל" />
         </LinearLayout>
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
