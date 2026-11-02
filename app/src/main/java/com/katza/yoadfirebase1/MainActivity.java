@@ -125,9 +125,7 @@ public class MainActivity extends AppCompatActivity {
                             tvContent.setText(tvContent.getText().toString() + student.toString());
 
                             // מציג ב-ImageView את התמונה של התלמיד הראשון שנשלף
-                            if (i == 0 && student.getImageBase64() != null) {
-                                displayBase64Image(student.getImageBase64(), ivStudent);
-                            }
+
                         }
                     }
                 });
@@ -147,9 +145,7 @@ public class MainActivity extends AppCompatActivity {
                             tvContent.setText(tvContent.getText().toString() + student.toString());
 
                             // מציג ב-ImageView את התמונה של התלמיד הראשון שנשלף
-                            if (i == 0 && student.getImageBase64() != null) {
-                                displayBase64Image(student.getImageBase64(), ivStudent);
-                            }
+
                         }
                     }
                 });

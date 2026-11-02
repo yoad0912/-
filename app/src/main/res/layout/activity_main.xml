@@ -4,126 +4,206 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#F1F5F9">
 
-    <ScrollView
+    <!-- כותרת עליונה מעוצבת -->
+    <LinearLayout
+        android:id="@+id/headerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#0F172A"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="24dp"
+        android:paddingBottom="24dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ניהול סטודנטים"
+            android:textColor="#FFFFFF"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <!-- כרטיסיית תצוגת נתונים מרכזית -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardDisplay"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/bottomlayout"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="6dp"
+        app:layout_constraintBottom_toTopOf="@id/cardControls"
+        app:layout_constraintTop_toBottomOf="@id/headerLayout">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <!-- תלמיד / תמונה -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
+                    android:layout_marginBottom="12dp"
+                    app:cardCornerRadius="55dp"
+                    app:cardElevation="3dp">
+
+                    <ImageView
+                        android:id="@+id/ivStudent"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@android:drawable/ic_menu_camera" />
+                </androidx.cardview.widget.CardView>
+
+                <Button
+                    android:id="@+id/btnSelectImage"
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:text="בחר תמונה"
+                    android:textSize="13sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="#E2E8F0" />
+
+                <TextView
+                    android:id="@+id/tvcontent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="4dp"
+                    android:textColor="#334155"
+                    android:textDirection="rtl"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </ScrollView>
+    </androidx.cardview.widget.CardView>
+
+    <!-- כרטיסיית פעולות ושדות קלט תחתונים -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardControls"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
             android:orientation="vertical"
             android:padding="16dp">
 
-            <ImageView
-                android:id="@+id/ivStudent"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_marginBottom="10dp"
-                android:scaleType="centerCrop"
-                android:src="@android:drawable/ic_menu_camera" />
+            <EditText
+                android:id="@+id/tz"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:layout_marginBottom="8dp"
+                android:background="@android:drawable/editbox_background_normal"
+                android:gravity="center"
+                android:hint="תעודת זהות"
+                android:inputType="number"
+                android:textSize="14sp" />
 
-            <Button
-                android:id="@+id/btnSelectImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:text="בחר תמונה" />
+            <EditText
+                android:id="@+id/fullname"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:layout_marginBottom="8dp"
+                android:background="@android:drawable/editbox_background_normal"
+                android:gravity="center"
+                android:hint="שם מלא"
+                android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/tvcontent"
+            <EditText
+                android:id="@+id/grade"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:layout_marginBottom="12dp"
+                android:background="@android:drawable/editbox_background_normal"
+                android:gravity="center"
+                android:hint="ציון סופי"
+                android:inputType="number"
+                android:textSize="14sp" />
+
+            <!-- שורת כפתורים 1: הוספה / עדכון / מחיקה -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textDirection="rtl"
-                android:textSize="18sp" />
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnInsert"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#0F172A"
+                    android:text="הוסף"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btnUpdate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#0F172A"
+                    android:text="עדכן" />
+
+                <Button
+                    android:id="@+id/btnDelete"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="#0F172A"
+                    android:text="מחק" />
+            </LinearLayout>
+
+            <!-- שורת כפתורים 2: חיפושים -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnSelect"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#0F172A"
+                    android:text="חפש לפי ציון" />
+
+                <Button
+                    android:id="@+id/btnSelectAll"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="#0F172A"
+                    android:text="הצג הכל" />
+            </LinearLayout>
         </LinearLayout>
-    </ScrollView>
-
-    <LinearLayout
-        android:id="@+id/bottomlayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="8dp"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-        <EditText
-            android:id="@+id/tz"
-            android:layout_width="280dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:hint="תעודת זהות"
-            android:inputType="number" />
-
-        <EditText
-            android:id="@+id/fullname"
-            android:layout_width="280dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:hint="שם מלא" />
-
-        <EditText
-            android:id="@+id/grade"
-            android:layout_width="280dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:hint="ציון סופי"
-            android:inputType="number" />
-
-        <!-- שורת כפתורים ראשונה -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnInsert"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="הוסף" />
-
-            <Button
-                android:id="@+id/btnUpdate"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="עדכן" />
-
-            <Button
-                android:id="@+id/btnDelete"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="מחק" />
-        </LinearLayout>
-
-        <!-- שורת כפתורים שנייה -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnSelect"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="חפש לפי ציון" />
-
-            <Button
-                android:id="@+id/btnSelectAll"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="הצג הכל" />
-        </LinearLayout>
-    </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
