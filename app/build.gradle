@@ -4,42 +4,45 @@ plugins {
 }
 
 android {
-    namespace 'com.katza.yoadfirebase1'
-    compileSdk {
-        version = release(34)
-    }
+    namespace = "com.katza.yoadfirebase1"
+
+    // מעדכנים את ה-compileSdk ל-36 כדי לפתור את שגיאת ה-AAR Metadata
+    compileSdk = 36
 
     defaultConfig {
-        applicationId "com.katza.yoadfirebase1"
-        minSdk 29
-        targetSdk 34
-        versionCode 1
-        versionName "1.0"
+        applicationId = "com.katza.yoadfirebase1"
+        minSdk = 29
+        targetSdk = 34
+        versionCode = 1
+        versionName = "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
             optimization {
-                enable false
+                enable = false
             }
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 }
 
 dependencies {
+    // השארנו את firebase-auth והעלינו את ה-compileSdk ל-36
+    implementation("com.google.firebase:firebase-auth:23.2.0")
     implementation("androidx.cardview:cardview:1.0.0")
-    implementation libs.activity.ktx
-    implementation libs.appcompat
-    implementation libs.constraintlayout
-    implementation libs.firebase.firestore
-    implementation libs.material
-    testImplementation libs.junit
-    androidTestImplementation libs.espresso.core
-    androidTestImplementation libs.ext.junit
+    implementation(libs.activity.ktx)
+    implementation(libs.appcompat)
+    implementation(libs.constraintlayout)
+    implementation(libs.firebase.firestore)
+    implementation(libs.material)
+    implementation(libs.activity)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.ext.junit)
 }

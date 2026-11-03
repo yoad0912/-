@@ -1,5 +1,6 @@
 package com.katza.yoadfirebase1;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageView ivStudent;
     EditText etTz, etFullname, etGrade;
-    Button btnInsert, btnSelect, btnSelectAll, btnUpdate, btnDelete, btnSelectImage;
+    Button btnInsert, btnSelect, btnSelectAll, btnUpdate, btnDelete, btnSelectImage, btnLogout;
 
     TextView tvContent;
 
@@ -40,6 +41,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // בדיקה: אם המשתמש לא מחובר ב-Firebase - מחזירים אותו למסך ההתחברות
+        if (com.google.firebase.auth.FirebaseAuth.getInstance().getCurrentUser() == null) {
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            finish();
+            return;
+        }
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -61,6 +68,21 @@ public class MainActivity extends AppCompatActivity {
         btnDelete = findViewById(R.id.btnDelete);
         ivStudent = findViewById(R.id.ivStudent);
         btnSelectImage = findViewById(R.id.btnSelectImage);
+        btnLogout = findViewById(R.id.btnLogout);
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // התנתקות מ-Firebase
+                com.google.firebase.auth.FirebaseAuth.getInstance().signOut();
+
+                // מעבר למסך ההתחברות ואיפוס ה-Stack (כדי שלא יוכל לחזור אחורה בלחיצה על Back)
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         // מנגנון לבחירת תמונה מהגלריה
         imagePickerLauncher = registerForActivityResult(
@@ -184,6 +206,8 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "התלמיד נמחק!", Toast.LENGTH_SHORT).show();
             }
         });
+
+
     }
 
     @Override
@@ -217,4 +241,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+
 }
